@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -3248,16 +3247,3 @@ export enum System_Locales {
   All = 'ALL',
   Neutral = 'NEUTRAL'
 }
-
-export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type Unnamed_1_Query = { __typename?: 'Query', FoodPage?: { __typename?: 'FoodPageOutput', items?: Array<{ __typename?: 'FoodPage', Title?: string | null, FoodArea?: Array<{ __typename?: 'ContentAreaItemModelSearch', ContentLink?: { __typename?: 'ContentModelReferenceSearch', Expanded?: { __typename?: 'Content' } | { __typename?: 'DAMAsset' } | { __typename?: 'DAMImageAsset' } | { __typename?: 'DAMVideoAsset' } | (
-            { __typename?: 'FoodBlock' }
-            & { ' $fragmentRefs'?: { 'FoodBlockFragment': FoodBlockFragment } }
-          ) | { __typename?: 'FoodPage' } | null } | null } | null> | null } | null> | null } | null };
-
-export type FoodBlockFragment = { __typename?: 'FoodBlock', Name?: string | null, Image?: string | null, Description?: string | null, Types?: Array<string | null> | null } & { ' $fragmentName'?: 'FoodBlockFragment' };
-
-export const FoodBlockFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"foodBlock"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FoodBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Image"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"Types"}}]}}]} as unknown as DocumentNode<FoodBlockFragment, unknown>;
-export const Document = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"FoodPage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Title"}},{"kind":"Field","name":{"kind":"Name","value":"FoodArea"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ContentLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Expanded"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"foodBlock"}}]}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"foodBlock"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FoodBlock"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Image"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"Types"}}]}}]} as unknown as DocumentNode<Query, QueryVariables>;
