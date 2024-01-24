@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -2214,8 +2215,9 @@ export type FoodPage = IContent & IData & {
   ContentLink?: Maybe<ContentModelReference>;
   ContentType?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   Created?: Maybe<Scalars['Date']['output']>;
+  Description?: Maybe<Scalars['String']['output']>;
   ExistingLanguages?: Maybe<Array<Maybe<ContentLanguageModel>>>;
-  FoodArea?: Maybe<Array<Maybe<ContentAreaItemModelSearch>>>;
+  Image?: Maybe<Scalars['String']['output']>;
   IsCommonDraft?: Maybe<Scalars['Bool']['output']>;
   Language?: Maybe<ContentLanguageModel>;
   MasterLanguage?: Maybe<ContentLanguageModel>;
@@ -2228,7 +2230,7 @@ export type FoodPage = IContent & IData & {
   StartPublish?: Maybe<Scalars['Date']['output']>;
   Status?: Maybe<Scalars['String']['output']>;
   StopPublish?: Maybe<Scalars['Date']['output']>;
-  Title?: Maybe<Scalars['String']['output']>;
+  Types?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   Url?: Maybe<Scalars['String']['output']>;
   _children?: Maybe<QueryRef>;
   _deleted?: Maybe<Scalars['Bool']['output']>;
@@ -2251,6 +2253,7 @@ export type FoodPageAutocomplete = {
   ContentLink?: Maybe<ContentModelReferenceAutocomplete>;
   ContentType?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   ExistingLanguages?: Maybe<ContentLanguageModelAutocomplete>;
+  Image?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   Language?: Maybe<ContentLanguageModelAutocomplete>;
   MasterLanguage?: Maybe<ContentLanguageModelAutocomplete>;
   ParentLink?: Maybe<ContentModelReferenceAutocomplete>;
@@ -2258,7 +2261,7 @@ export type FoodPageAutocomplete = {
   RouteSegment?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   SiteId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   Status?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  Title?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  Types?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   Url?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
 };
 
@@ -2270,6 +2273,12 @@ export type FoodPageAutocompleteAncestorsArgs = {
 
 
 export type FoodPageAutocompleteContentTypeArgs = {
+  limit?: Scalars['Int']['input'];
+  value: Scalars['String']['input'];
+};
+
+
+export type FoodPageAutocompleteImageArgs = {
   limit?: Scalars['Int']['input'];
   value: Scalars['String']['input'];
 };
@@ -2299,7 +2308,7 @@ export type FoodPageAutocompleteStatusArgs = {
 };
 
 
-export type FoodPageAutocompleteTitleArgs = {
+export type FoodPageAutocompleteTypesArgs = {
   limit?: Scalars['Int']['input'];
   value: Scalars['String']['input'];
 };
@@ -2318,8 +2327,9 @@ export type FoodPageFacet = {
   ContentLink?: Maybe<ContentModelReferenceFacet>;
   ContentType?: Maybe<Array<Maybe<StringFacet>>>;
   Created?: Maybe<Array<Maybe<DateFacet>>>;
+  Description?: Maybe<Array<Maybe<StringFacet>>>;
   ExistingLanguages?: Maybe<ContentLanguageModelFacet>;
-  FoodArea?: Maybe<ContentAreaItemModelSearchFacet>;
+  Image?: Maybe<Array<Maybe<StringFacet>>>;
   IsCommonDraft?: Maybe<Array<Maybe<StringFacet>>>;
   Language?: Maybe<ContentLanguageModelFacet>;
   MasterLanguage?: Maybe<ContentLanguageModelFacet>;
@@ -2332,7 +2342,7 @@ export type FoodPageFacet = {
   StartPublish?: Maybe<Array<Maybe<DateFacet>>>;
   Status?: Maybe<Array<Maybe<StringFacet>>>;
   StopPublish?: Maybe<Array<Maybe<DateFacet>>>;
-  Title?: Maybe<Array<Maybe<StringFacet>>>;
+  Types?: Maybe<Array<Maybe<StringFacet>>>;
   Url?: Maybe<Array<Maybe<StringFacet>>>;
 };
 
@@ -2362,6 +2372,22 @@ export type FoodPageFacetContentTypeArgs = {
 export type FoodPageFacetCreatedArgs = {
   unit?: InputMaybe<DateFacetUnit>;
   value?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type FoodPageFacetDescriptionArgs = {
+  filters?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<OrderBy>;
+  orderType?: InputMaybe<OrderByFacetType>;
+};
+
+
+export type FoodPageFacetImageArgs = {
+  filters?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<OrderBy>;
+  orderType?: InputMaybe<OrderByFacetType>;
 };
 
 
@@ -2431,7 +2457,7 @@ export type FoodPageFacetStopPublishArgs = {
 };
 
 
-export type FoodPageFacetTitleArgs = {
+export type FoodPageFacetTypesArgs = {
   filters?: InputMaybe<Array<Scalars['String']['input']>>;
   limit?: Scalars['Int']['input'];
   orderBy?: InputMaybe<OrderBy>;
@@ -2453,8 +2479,9 @@ export type FoodPageOrderByInput = {
   ContentLink?: InputMaybe<ContentModelReferenceOrderByInput>;
   ContentType?: InputMaybe<OrderBy>;
   Created?: InputMaybe<OrderBy>;
+  Description?: InputMaybe<OrderBy>;
   ExistingLanguages?: InputMaybe<ContentLanguageModelOrderByInput>;
-  FoodArea?: InputMaybe<ContentAreaItemModelSearchOrderByInput>;
+  Image?: InputMaybe<OrderBy>;
   IsCommonDraft?: InputMaybe<OrderBy>;
   Language?: InputMaybe<ContentLanguageModelOrderByInput>;
   MasterLanguage?: InputMaybe<ContentLanguageModelOrderByInput>;
@@ -2467,7 +2494,7 @@ export type FoodPageOrderByInput = {
   StartPublish?: InputMaybe<OrderBy>;
   Status?: InputMaybe<OrderBy>;
   StopPublish?: InputMaybe<OrderBy>;
-  Title?: InputMaybe<OrderBy>;
+  Types?: InputMaybe<OrderBy>;
   Url?: InputMaybe<OrderBy>;
   _ranking?: InputMaybe<Ranking>;
 };
@@ -2493,6 +2520,317 @@ export type FoodPageWhereInput = {
   ContentLink?: InputMaybe<ContentModelReferenceWhereInput>;
   ContentType?: InputMaybe<StringFilterInput>;
   Created?: InputMaybe<DateFilterInput>;
+  Description?: InputMaybe<SearchableStringFilterInput>;
+  ExistingLanguages?: InputMaybe<ContentLanguageModelWhereInput>;
+  Image?: InputMaybe<StringFilterInput>;
+  IsCommonDraft?: InputMaybe<BoolFilterInput>;
+  Language?: InputMaybe<ContentLanguageModelWhereInput>;
+  MasterLanguage?: InputMaybe<ContentLanguageModelWhereInput>;
+  Name?: InputMaybe<SearchableStringFilterInput>;
+  ParentLink?: InputMaybe<ContentModelReferenceWhereInput>;
+  RelativePath?: InputMaybe<StringFilterInput>;
+  RouteSegment?: InputMaybe<StringFilterInput>;
+  Saved?: InputMaybe<DateFilterInput>;
+  SiteId?: InputMaybe<StringFilterInput>;
+  StartPublish?: InputMaybe<DateFilterInput>;
+  Status?: InputMaybe<StringFilterInput>;
+  StopPublish?: InputMaybe<DateFilterInput>;
+  Types?: InputMaybe<StringFilterInput>;
+  Url?: InputMaybe<StringFilterInput>;
+  _and?: InputMaybe<Array<InputMaybe<FoodPageWhereInput>>>;
+  _fulltext?: InputMaybe<SearchableStringFilterInput>;
+  _modified?: InputMaybe<DateFilterInput>;
+  _not?: InputMaybe<Array<InputMaybe<FoodPageWhereInput>>>;
+  _or?: InputMaybe<Array<InputMaybe<FoodPageWhereInput>>>;
+};
+
+export type HomePage = IContent & IData & {
+  __typename?: 'HomePage';
+  Ancestors?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  Category?: Maybe<Array<Maybe<CategoryModel>>>;
+  Changed?: Maybe<Scalars['Date']['output']>;
+  ContentLink?: Maybe<ContentModelReference>;
+  ContentType?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  Created?: Maybe<Scalars['Date']['output']>;
+  ExistingLanguages?: Maybe<Array<Maybe<ContentLanguageModel>>>;
+  FoodArea?: Maybe<Array<Maybe<ContentAreaItemModelSearch>>>;
+  IsCommonDraft?: Maybe<Scalars['Bool']['output']>;
+  Language?: Maybe<ContentLanguageModel>;
+  MasterLanguage?: Maybe<ContentLanguageModel>;
+  Name?: Maybe<Scalars['String']['output']>;
+  ParentLink?: Maybe<ContentModelReference>;
+  RelativePath?: Maybe<Scalars['String']['output']>;
+  RouteSegment?: Maybe<Scalars['String']['output']>;
+  Saved?: Maybe<Scalars['Date']['output']>;
+  SiteId?: Maybe<Scalars['String']['output']>;
+  StartPublish?: Maybe<Scalars['Date']['output']>;
+  Status?: Maybe<Scalars['String']['output']>;
+  StopPublish?: Maybe<Scalars['Date']['output']>;
+  Title?: Maybe<Scalars['String']['output']>;
+  Url?: Maybe<Scalars['String']['output']>;
+  _children?: Maybe<QueryRef>;
+  _deleted?: Maybe<Scalars['Bool']['output']>;
+  _fulltext?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  _id?: Maybe<Scalars['String']['output']>;
+  _link?: Maybe<QueryRef>;
+  _modified?: Maybe<Scalars['Date']['output']>;
+  _score?: Maybe<Scalars['Float']['output']>;
+};
+
+
+export type HomePage_LinkArgs = {
+  type?: InputMaybe<LinkTypes>;
+};
+
+export type HomePageAutocomplete = {
+  __typename?: 'HomePageAutocomplete';
+  Ancestors?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  Category?: Maybe<CategoryModelAutocomplete>;
+  ContentLink?: Maybe<ContentModelReferenceAutocomplete>;
+  ContentType?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  ExistingLanguages?: Maybe<ContentLanguageModelAutocomplete>;
+  Language?: Maybe<ContentLanguageModelAutocomplete>;
+  MasterLanguage?: Maybe<ContentLanguageModelAutocomplete>;
+  ParentLink?: Maybe<ContentModelReferenceAutocomplete>;
+  RelativePath?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  RouteSegment?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  SiteId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  Status?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  Title?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  Url?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
+
+export type HomePageAutocompleteAncestorsArgs = {
+  limit?: Scalars['Int']['input'];
+  value: Scalars['String']['input'];
+};
+
+
+export type HomePageAutocompleteContentTypeArgs = {
+  limit?: Scalars['Int']['input'];
+  value: Scalars['String']['input'];
+};
+
+
+export type HomePageAutocompleteRelativePathArgs = {
+  limit?: Scalars['Int']['input'];
+  value: Scalars['String']['input'];
+};
+
+
+export type HomePageAutocompleteRouteSegmentArgs = {
+  limit?: Scalars['Int']['input'];
+  value: Scalars['String']['input'];
+};
+
+
+export type HomePageAutocompleteSiteIdArgs = {
+  limit?: Scalars['Int']['input'];
+  value: Scalars['String']['input'];
+};
+
+
+export type HomePageAutocompleteStatusArgs = {
+  limit?: Scalars['Int']['input'];
+  value: Scalars['String']['input'];
+};
+
+
+export type HomePageAutocompleteTitleArgs = {
+  limit?: Scalars['Int']['input'];
+  value: Scalars['String']['input'];
+};
+
+
+export type HomePageAutocompleteUrlArgs = {
+  limit?: Scalars['Int']['input'];
+  value: Scalars['String']['input'];
+};
+
+export type HomePageFacet = {
+  __typename?: 'HomePageFacet';
+  Ancestors?: Maybe<Array<Maybe<StringFacet>>>;
+  Category?: Maybe<CategoryModelFacet>;
+  Changed?: Maybe<Array<Maybe<DateFacet>>>;
+  ContentLink?: Maybe<ContentModelReferenceFacet>;
+  ContentType?: Maybe<Array<Maybe<StringFacet>>>;
+  Created?: Maybe<Array<Maybe<DateFacet>>>;
+  ExistingLanguages?: Maybe<ContentLanguageModelFacet>;
+  FoodArea?: Maybe<ContentAreaItemModelSearchFacet>;
+  IsCommonDraft?: Maybe<Array<Maybe<StringFacet>>>;
+  Language?: Maybe<ContentLanguageModelFacet>;
+  MasterLanguage?: Maybe<ContentLanguageModelFacet>;
+  Name?: Maybe<Array<Maybe<StringFacet>>>;
+  ParentLink?: Maybe<ContentModelReferenceFacet>;
+  RelativePath?: Maybe<Array<Maybe<StringFacet>>>;
+  RouteSegment?: Maybe<Array<Maybe<StringFacet>>>;
+  Saved?: Maybe<Array<Maybe<DateFacet>>>;
+  SiteId?: Maybe<Array<Maybe<StringFacet>>>;
+  StartPublish?: Maybe<Array<Maybe<DateFacet>>>;
+  Status?: Maybe<Array<Maybe<StringFacet>>>;
+  StopPublish?: Maybe<Array<Maybe<DateFacet>>>;
+  Title?: Maybe<Array<Maybe<StringFacet>>>;
+  Url?: Maybe<Array<Maybe<StringFacet>>>;
+};
+
+
+export type HomePageFacetAncestorsArgs = {
+  filters?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<OrderBy>;
+  orderType?: InputMaybe<OrderByFacetType>;
+};
+
+
+export type HomePageFacetChangedArgs = {
+  unit?: InputMaybe<DateFacetUnit>;
+  value?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type HomePageFacetContentTypeArgs = {
+  filters?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<OrderBy>;
+  orderType?: InputMaybe<OrderByFacetType>;
+};
+
+
+export type HomePageFacetCreatedArgs = {
+  unit?: InputMaybe<DateFacetUnit>;
+  value?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type HomePageFacetIsCommonDraftArgs = {
+  filters?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<OrderBy>;
+  orderType?: InputMaybe<OrderByFacetType>;
+};
+
+
+export type HomePageFacetNameArgs = {
+  filters?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<OrderBy>;
+  orderType?: InputMaybe<OrderByFacetType>;
+};
+
+
+export type HomePageFacetRelativePathArgs = {
+  filters?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<OrderBy>;
+  orderType?: InputMaybe<OrderByFacetType>;
+};
+
+
+export type HomePageFacetRouteSegmentArgs = {
+  filters?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<OrderBy>;
+  orderType?: InputMaybe<OrderByFacetType>;
+};
+
+
+export type HomePageFacetSavedArgs = {
+  unit?: InputMaybe<DateFacetUnit>;
+  value?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type HomePageFacetSiteIdArgs = {
+  filters?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<OrderBy>;
+  orderType?: InputMaybe<OrderByFacetType>;
+};
+
+
+export type HomePageFacetStartPublishArgs = {
+  unit?: InputMaybe<DateFacetUnit>;
+  value?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type HomePageFacetStatusArgs = {
+  filters?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<OrderBy>;
+  orderType?: InputMaybe<OrderByFacetType>;
+};
+
+
+export type HomePageFacetStopPublishArgs = {
+  unit?: InputMaybe<DateFacetUnit>;
+  value?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type HomePageFacetTitleArgs = {
+  filters?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<OrderBy>;
+  orderType?: InputMaybe<OrderByFacetType>;
+};
+
+
+export type HomePageFacetUrlArgs = {
+  filters?: InputMaybe<Array<Scalars['String']['input']>>;
+  limit?: Scalars['Int']['input'];
+  orderBy?: InputMaybe<OrderBy>;
+  orderType?: InputMaybe<OrderByFacetType>;
+};
+
+export type HomePageOrderByInput = {
+  Ancestors?: InputMaybe<OrderBy>;
+  Category?: InputMaybe<CategoryModelOrderByInput>;
+  Changed?: InputMaybe<OrderBy>;
+  ContentLink?: InputMaybe<ContentModelReferenceOrderByInput>;
+  ContentType?: InputMaybe<OrderBy>;
+  Created?: InputMaybe<OrderBy>;
+  ExistingLanguages?: InputMaybe<ContentLanguageModelOrderByInput>;
+  FoodArea?: InputMaybe<ContentAreaItemModelSearchOrderByInput>;
+  IsCommonDraft?: InputMaybe<OrderBy>;
+  Language?: InputMaybe<ContentLanguageModelOrderByInput>;
+  MasterLanguage?: InputMaybe<ContentLanguageModelOrderByInput>;
+  Name?: InputMaybe<OrderBy>;
+  ParentLink?: InputMaybe<ContentModelReferenceOrderByInput>;
+  RelativePath?: InputMaybe<OrderBy>;
+  RouteSegment?: InputMaybe<OrderBy>;
+  Saved?: InputMaybe<OrderBy>;
+  SiteId?: InputMaybe<OrderBy>;
+  StartPublish?: InputMaybe<OrderBy>;
+  Status?: InputMaybe<OrderBy>;
+  StopPublish?: InputMaybe<OrderBy>;
+  Title?: InputMaybe<OrderBy>;
+  Url?: InputMaybe<OrderBy>;
+  _ranking?: InputMaybe<Ranking>;
+};
+
+export type HomePageOutput = {
+  __typename?: 'HomePageOutput';
+  autocomplete?: Maybe<HomePageAutocomplete>;
+  cursor?: Maybe<Scalars['String']['output']>;
+  facets?: Maybe<HomePageFacet>;
+  items?: Maybe<Array<Maybe<HomePage>>>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type HomePageOutputTotalArgs = {
+  all?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type HomePageWhereInput = {
+  Ancestors?: InputMaybe<StringFilterInput>;
+  Category?: InputMaybe<CategoryModelWhereInput>;
+  Changed?: InputMaybe<DateFilterInput>;
+  ContentLink?: InputMaybe<ContentModelReferenceWhereInput>;
+  ContentType?: InputMaybe<StringFilterInput>;
+  Created?: InputMaybe<DateFilterInput>;
   ExistingLanguages?: InputMaybe<ContentLanguageModelWhereInput>;
   FoodArea?: InputMaybe<ContentAreaItemModelSearchWhereInput>;
   IsCommonDraft?: InputMaybe<BoolFilterInput>;
@@ -2509,11 +2847,11 @@ export type FoodPageWhereInput = {
   StopPublish?: InputMaybe<DateFilterInput>;
   Title?: InputMaybe<StringFilterInput>;
   Url?: InputMaybe<StringFilterInput>;
-  _and?: InputMaybe<Array<InputMaybe<FoodPageWhereInput>>>;
+  _and?: InputMaybe<Array<InputMaybe<HomePageWhereInput>>>;
   _fulltext?: InputMaybe<SearchableStringFilterInput>;
   _modified?: InputMaybe<DateFilterInput>;
-  _not?: InputMaybe<Array<InputMaybe<FoodPageWhereInput>>>;
-  _or?: InputMaybe<Array<InputMaybe<FoodPageWhereInput>>>;
+  _not?: InputMaybe<Array<InputMaybe<HomePageWhereInput>>>;
+  _or?: InputMaybe<Array<InputMaybe<HomePageWhereInput>>>;
 };
 
 export type HostDefinitionModel = {
@@ -2711,6 +3049,7 @@ export type Query = {
   Data?: Maybe<DataOutput>;
   FoodBlock?: Maybe<FoodBlockOutput>;
   FoodPage?: Maybe<FoodPageOutput>;
+  HomePage?: Maybe<HomePageOutput>;
   SiteDefinition?: Maybe<SiteDefinitionOutput>;
 };
 
@@ -2792,6 +3131,17 @@ export type QueryFoodPageArgs = {
 };
 
 
+export type QueryHomePageArgs = {
+  cursor?: InputMaybe<Scalars['String']['input']>;
+  ids?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Array<InputMaybe<Locales>>>;
+  orderBy?: InputMaybe<HomePageOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<HomePageWhereInput>;
+};
+
+
 export type QuerySiteDefinitionArgs = {
   cursor?: InputMaybe<Scalars['String']['input']>;
   ids?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -2811,6 +3161,7 @@ export type QueryRef = {
   Data?: Maybe<DataOutput>;
   FoodBlock?: Maybe<FoodBlockOutput>;
   FoodPage?: Maybe<FoodPageOutput>;
+  HomePage?: Maybe<HomePageOutput>;
   SiteDefinition?: Maybe<SiteDefinitionOutput>;
 };
 
@@ -2889,6 +3240,17 @@ export type QueryRefFoodPageArgs = {
   orderBy?: InputMaybe<FoodPageOrderByInput>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<FoodPageWhereInput>;
+};
+
+
+export type QueryRefHomePageArgs = {
+  cursor?: InputMaybe<Scalars['String']['input']>;
+  ids?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Array<InputMaybe<Locales>>>;
+  orderBy?: InputMaybe<HomePageOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<HomePageWhereInput>;
 };
 
 
@@ -3247,3 +3609,13 @@ export enum System_Locales {
   All = 'ALL',
   Neutral = 'NEUTRAL'
 }
+
+export type DetailQueryQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type DetailQueryQuery = { __typename?: 'Query', FoodPage?: { __typename?: 'FoodPageOutput', items?: Array<{ __typename?: 'FoodPage', Name?: string | null, Types?: Array<string | null> | null, Image?: string | null, Description?: string | null, ContentLink?: { __typename?: 'ContentModelReference', Url?: string | null } | null } | null> | null } | null };
+
+
+export const DetailQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DetailQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"FoodPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"ContentLink"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"Url"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"endsWith"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Types"}},{"kind":"Field","name":{"kind":"Name","value":"Image"}},{"kind":"Field","name":{"kind":"Name","value":"ContentLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Description"}}]}}]}}]}}]} as unknown as DocumentNode<DetailQueryQuery, DetailQueryQueryVariables>;
