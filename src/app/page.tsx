@@ -1,6 +1,7 @@
 import { getClient } from "@/lib/client";
 import { gql } from "@apollo/client";
 import { FoodBlock, FoodPage, HomePage } from "@/__generated__/graphql";
+import { redirect } from "next/navigation";
 // import { useState } from "react";
 
 const HOME = gql`
@@ -34,24 +35,34 @@ export default async function Home() {
   if (error) return `Error! ${error.message}`
   // const [searchTerm, setSearchTerm] = useState("");
 
-  // const handleSearch = (event: any) => {
-  //   setSearchTerm(event.target.value);
-  //   console.log(`Searching for ${searchTerm}`);
-  // };
+  const handleSearch = async (event: any) => {
+    console.log(event.target.value)
+    // redirect(`/search?${event.target.value}`);
+  };
+
   return (
     <main>
       <div className="bg-white">
-          <div className="flex flex-col items-center justify-center w-full">
-            <div className="">
-              <input
-                type="text"
-                // value={searchTerm}
-                // onChange={handleSearch}
-                className="w-full h-10 px-4 pr-10 text-sm bg-white border border-gray-300 rounded-lg lg:w-80 focus:outline-none"
-                placeholder="Search term..."
-              />
+        <div className="mx-auto max-w-2xl">
+          <label htmlFor="search" className="block text-sm font-medium leading-6 text-gray-900">
+            Quick search
+          </label>
+          <div className="relative mt-2 flex items-center">
+            {/* <SearchInput /> */}
+            <input
+              type="text"
+              name="search"
+              id="search"
+              // onInput={(e) => handleSearch(e)}
+              className="block w-full rounded-md border-0 py-1.5 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+            <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
+              <kbd className="inline-flex items-center rounded border border-gray-200 px-1 font-sans text-xs text-gray-400">
+                🔍
+              </kbd>
             </div>
           </div>
+        </div>
         {
           data.HomePage.items.map((item: HomePage) => (
             <div key={item.Title} className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">

@@ -1,5 +1,6 @@
 import { getClient } from "@/lib/client";
 import { gql } from "@apollo/client"
+import parse from 'html-react-parser';
 
 const foodPageQuery = gql`
 query DetailQuery($slug: String) {
@@ -64,9 +65,14 @@ export default async function DetailFoodPage({ params }: { params: { slug: strin
                         <div className="mt-6">
                             <h3 className="sr-only">Description</h3>
                             <div
-                                className="space-y-6 text-base text-gray-700"
+                                className="space-y-6 text-base text-gray-700 text-pretty"
                                 dangerouslySetInnerHTML={{ __html: foodPage.Description }}
                             />
+                                {/* <div className="text-wrap">
+                                {parse(foodPage.Description)}
+                                </div> */}
+                                
+                            {/* </div> */}
                         </div>
                     </div>
                 </div>
