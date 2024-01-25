@@ -22,9 +22,6 @@ export default function RootLayout({
 
   useEffect(() => {
     const firstPath = window.location.pathname.split("/")[1];
-    if (firstPath !== "en" && firstPath !== "de") {
-      setLocale("en");
-    }
     if (firstPath === "en" || firstPath === "de") {
       setLocale(firstPath);
     }
@@ -33,6 +30,7 @@ export default function RootLayout({
   const switchLanguageHanlder = (e: any) => {
     const paths = window.location.pathname.split("/");
     const newPath = [e.target.value, ...paths.slice(2, paths.length)].join("/");
+    setLocale(e.target.value);
     router.push("/" + newPath);
   };
   return (
