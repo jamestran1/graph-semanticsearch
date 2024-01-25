@@ -2261,7 +2261,6 @@ export type FoodPageAutocomplete = {
   RouteSegment?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   SiteId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   Status?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  Types?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   Url?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
 };
 
@@ -2303,12 +2302,6 @@ export type FoodPageAutocompleteSiteIdArgs = {
 
 
 export type FoodPageAutocompleteStatusArgs = {
-  limit?: Scalars['Int']['input'];
-  value: Scalars['String']['input'];
-};
-
-
-export type FoodPageAutocompleteTypesArgs = {
   limit?: Scalars['Int']['input'];
   value: Scalars['String']['input'];
 };
@@ -2535,7 +2528,7 @@ export type FoodPageWhereInput = {
   StartPublish?: InputMaybe<DateFilterInput>;
   Status?: InputMaybe<StringFilterInput>;
   StopPublish?: InputMaybe<DateFilterInput>;
-  Types?: InputMaybe<StringFilterInput>;
+  Types?: InputMaybe<SearchableStringFilterInput>;
   Url?: InputMaybe<StringFilterInput>;
   _and?: InputMaybe<Array<InputMaybe<FoodPageWhereInput>>>;
   _fulltext?: InputMaybe<SearchableStringFilterInput>;
@@ -2596,7 +2589,6 @@ export type HomePageAutocomplete = {
   RouteSegment?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   SiteId?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   Status?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  Title?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   Url?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
 };
 
@@ -2632,12 +2624,6 @@ export type HomePageAutocompleteSiteIdArgs = {
 
 
 export type HomePageAutocompleteStatusArgs = {
-  limit?: Scalars['Int']['input'];
-  value: Scalars['String']['input'];
-};
-
-
-export type HomePageAutocompleteTitleArgs = {
   limit?: Scalars['Int']['input'];
   value: Scalars['String']['input'];
 };
@@ -2845,7 +2831,7 @@ export type HomePageWhereInput = {
   StartPublish?: InputMaybe<DateFilterInput>;
   Status?: InputMaybe<StringFilterInput>;
   StopPublish?: InputMaybe<DateFilterInput>;
-  Title?: InputMaybe<StringFilterInput>;
+  Title?: InputMaybe<SearchableStringFilterInput>;
   Url?: InputMaybe<StringFilterInput>;
   _and?: InputMaybe<Array<InputMaybe<HomePageWhereInput>>>;
   _fulltext?: InputMaybe<SearchableStringFilterInput>;
@@ -3610,6 +3596,26 @@ export enum System_Locales {
   Neutral = 'NEUTRAL'
 }
 
+export type DetailQueryDeQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type DetailQueryDeQuery = { __typename?: 'Query', FoodPage?: { __typename?: 'FoodPageOutput', items?: Array<{ __typename?: 'FoodPage', Name?: string | null, Types?: Array<string | null> | null, Image?: string | null, Description?: string | null, ContentLink?: { __typename?: 'ContentModelReference', Url?: string | null } | null } | null> | null } | null };
+
+export type HomePageDeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HomePageDeQuery = { __typename?: 'Query', HomePage?: { __typename?: 'HomePageOutput', items?: Array<{ __typename?: 'HomePage', Title?: string | null, FoodArea?: Array<{ __typename?: 'ContentAreaItemModelSearch', ContentLink?: { __typename?: 'ContentModelReferenceSearch', Expanded?: { __typename?: 'Content' } | { __typename?: 'DAMAsset' } | { __typename?: 'DAMImageAsset' } | { __typename?: 'DAMVideoAsset' } | { __typename?: 'FoodBlock' } | { __typename?: 'FoodPage', Name?: string | null, Image?: string | null, Description?: string | null, Types?: Array<string | null> | null, ContentLink?: { __typename?: 'ContentModelReference', Url?: string | null } | null } | { __typename?: 'HomePage' } | null } | null } | null> | null } | null> | null } | null };
+
+export type FindFoodAiQueryVariables = Exact<{
+  search?: InputMaybe<Scalars['String']['input']>;
+  locale?: InputMaybe<Array<InputMaybe<Locales>> | InputMaybe<Locales>>;
+}>;
+
+
+export type FindFoodAiQuery = { __typename?: 'Query', FoodPage?: { __typename?: 'FoodPageOutput', total?: number | null, items?: Array<{ __typename?: 'FoodPage', Name?: string | null, Types?: Array<string | null> | null, Image?: string | null, Description?: string | null, _score?: number | null, ContentLink?: { __typename?: 'ContentModelReference', Url?: string | null } | null } | null> | null, facets?: { __typename?: 'FoodPageFacet', Types?: Array<{ __typename?: 'StringFacet', name?: string | null, count?: number | null } | null> | null } | null } | null };
+
 export type DetailQueryQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']['input']>;
 }>;
@@ -3618,4 +3624,7 @@ export type DetailQueryQueryVariables = Exact<{
 export type DetailQueryQuery = { __typename?: 'Query', FoodPage?: { __typename?: 'FoodPageOutput', items?: Array<{ __typename?: 'FoodPage', Name?: string | null, Types?: Array<string | null> | null, Image?: string | null, Description?: string | null, ContentLink?: { __typename?: 'ContentModelReference', Url?: string | null } | null } | null> | null } | null };
 
 
-export const DetailQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DetailQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"FoodPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"ContentLink"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"Url"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"endsWith"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Types"}},{"kind":"Field","name":{"kind":"Name","value":"Image"}},{"kind":"Field","name":{"kind":"Name","value":"ContentLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Description"}}]}}]}}]}}]} as unknown as DocumentNode<DetailQueryQuery, DetailQueryQueryVariables>;
+export const DetailQueryDeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DetailQueryDe"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"FoodPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"EnumValue","value":"de"}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"ContentLink"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"Url"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"endsWith"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Types"}},{"kind":"Field","name":{"kind":"Name","value":"Image"}},{"kind":"Field","name":{"kind":"Name","value":"ContentLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Description"}}]}}]}}]}}]} as unknown as DocumentNode<DetailQueryDeQuery, DetailQueryDeQueryVariables>;
+export const HomePageDeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"HomePageDe"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"HomePage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"EnumValue","value":"de"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Title"}},{"kind":"Field","name":{"kind":"Name","value":"FoodArea"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ContentLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Expanded"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"FoodPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Image"}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"Types"}},{"kind":"Field","name":{"kind":"Name","value":"ContentLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Url"}}]}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<HomePageDeQuery, HomePageDeQueryVariables>;
+export const FindFoodAiDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"findFoodAI"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"search"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Locales"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"FoodPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"5"}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_or"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"Name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"match"},"value":{"kind":"Variable","name":{"kind":"Name","value":"search"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"boost"},"value":{"kind":"IntValue","value":"5"}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_fulltext"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"match"},"value":{"kind":"Variable","name":{"kind":"Name","value":"search"}}}]}}]}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"_ranking"},"value":{"kind":"EnumValue","value":"SEMANTIC"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Types"}},{"kind":"Field","name":{"kind":"Name","value":"Image"}},{"kind":"Field","name":{"kind":"Name","value":"ContentLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Description"}},{"kind":"Field","name":{"kind":"Name","value":"_score"}}]}},{"kind":"Field","name":{"kind":"Name","value":"facets"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Types"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"count"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<FindFoodAiQuery, FindFoodAiQueryVariables>;
+export const DetailQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"DetailQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"FoodPage"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"EnumValue","value":"en"}},{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"ContentLink"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"Url"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"endsWith"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Name"}},{"kind":"Field","name":{"kind":"Name","value":"Types"}},{"kind":"Field","name":{"kind":"Name","value":"Image"}},{"kind":"Field","name":{"kind":"Name","value":"ContentLink"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"Description"}}]}}]}}]}}]} as unknown as DocumentNode<DetailQueryQuery, DetailQueryQueryVariables>;

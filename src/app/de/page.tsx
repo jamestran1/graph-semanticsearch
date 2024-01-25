@@ -4,8 +4,8 @@ import { FoodPage, HomePage } from "@/__generated__/graphql";
 import { useRouter } from "next/navigation";
 
 const HOME = gql`
-{
-  HomePage(locale: en) {
+query HomePageDe{
+  HomePage(locale: de) {
     items {
       Title
       FoodArea {
@@ -35,7 +35,7 @@ export default function Home() {
 
   const handleSearch = (event: any) => {
     if (event.key === "Enter") {
-      router.push(`/en/search?q=${event.target.value}`)
+      router.push(`/de/search?q=${event.target.value}`)
     }
   };
 
@@ -48,7 +48,7 @@ export default function Home() {
             type="text"
             name="search"
             id="search"
-            placeholder="Quick Search"
+            placeholder="Schnelle Suche"
             onKeyUp={(e) => handleSearch(e)}
             className="block w-full rounded-md border-0 py-1.5 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           />

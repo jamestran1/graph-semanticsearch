@@ -1122,13 +1122,6 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@optimizely/js-optiai@file:../../../Downloads/@optimizely/js-optiai":
-  version "2.1.4"
-  resolved "file:../../../Downloads/@optimizely/js-optiai"
-  dependencies:
-    crypto-js "^4.1.1"
-    node-abort-controller "^3.1.1"
-
 "@peculiar/asn1-schema@^2.3.8":
   version "2.3.8"
   resolved "https://registry.npmjs.org/@peculiar/asn1-schema/-/asn1-schema-2.3.8.tgz"

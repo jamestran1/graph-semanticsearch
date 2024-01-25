@@ -2,8 +2,8 @@ import { getClient } from "@/lib/client";
 import { gql } from "@apollo/client"
 
 const foodPageQuery = gql`
-query DetailQuery($slug: String) {
-  FoodPage(locale: en, where: {
+query DetailQueryDe($slug: String) {
+  FoodPage(locale: de, where: {
     ContentLink: {
       Url: {
         endsWith: $slug

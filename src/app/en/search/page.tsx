@@ -1,9 +1,10 @@
 'use client'
-import { Suspense, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { ChevronRightIcon } from '@heroicons/react/20/solid'
 import { gql } from "@apollo/client";
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import { FoodPage } from '@/__generated__/graphql';
+import { useSearchParams } from 'next/navigation';
 
 type SummaryResult = {
     id: string;
@@ -21,8 +22,8 @@ interface FoodProps {
 const FIRST_VALUE = "___first_value___";
 
 const searchQuery = gql`
-    query findFoodAI($search: String) {
-    FoodPage(limit: 5, where: {
+    query findFoodAI($search: String, $locale: [Locales]) {
+    FoodPage(limit: 5, locale: $locale, where: {
         _or: [
         {
             Name: {
@@ -62,8 +63,8 @@ const searchQuery = gql`
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
-  }
-  
+}
+
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
@@ -72,7 +73,7 @@ async function summarize(question: string) {
     const aiSingleKey = "epi-single tFTCBoAPzxkpnVJmbjVfLSAqnMySsr5QZ5csXCIEYcmqNAhA";
     const summaryArgs = {
         "haystack": {
-            "query": "query findFoodAI($search: String) {   FoodPage(limit: 5, where: {     _or: [       {         Name: {           match: $search           boost: 5         }       },       {         _fulltext: {           match: $search          }       },     ]   }, orderBy: {     _ranking: SEMANTIC   }) {     items {       Name       Types       Image       ContentLink {         Url       }       Description       _score     }     facets {       Types {         name         count       }     }     total   } }",
+            "query": "query findFoodAI($search: String) {   FoodPage(limit: 5, locale: [en], where: {     _or: [       {         Name: {           match: $search           boost: 5         }       },       {         _fulltext: {           match: $search          }       },     ]   }, orderBy: {     _ranking: SEMANTIC   }) {     items {       Name       Types       Image       ContentLink {         Url       }       Description       _score     }     facets {       Types {         name         count       }     }     total   } }",
             "single_key": "FN2KsYsUIKkqahBfJOiILcRUykgXoY0VFomMgVHjM1IMiSyg",
             "source_type": "optimizely-graph"
         },
@@ -97,7 +98,7 @@ async function summarize(question: string) {
         status: "running"
     };
     while (data.status === "running") {
-        // await sleep(1000);
+        await sleep(1000);
         const summaryResult = await fetch(`${endpoint}/${id}`, {
             method: 'GET',
             headers: {
@@ -113,7 +114,7 @@ async function summarize(question: string) {
 }
 
 function FoodQuery({ search }: FoodProps) {
-    const {data, error}  = useSuspenseQuery(searchQuery, { variables: { search: search } });
+    const { data, error } = useSuspenseQuery(searchQuery, { variables: { search: search, locale: ["en"] } });
     if (search === FIRST_VALUE || search === "") return <div></div>;
     if (error) return <div></div>
     const response = data as any
@@ -150,13 +151,28 @@ function FoodQuery({ search }: FoodProps) {
 }
 
 export default function Search() {
-    const [question, setQuestion] = useState(FIRST_VALUE);
+    const searchParams = useSearchParams();
+    const search = searchParams.get('q')
+    const [question, setQuestion] = useState(search || FIRST_VALUE);
     const [message, setMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
+    useEffect(() => {
+        if (search !== "" && search != FIRST_VALUE) {
+            setQuestion(search);
+            setIsLoading(true);
+            summarize(search).then((result) => {
+                setMessage(result);
+                setIsLoading(false);
+            });
+
+        }
+    }, [])
+
+
+
     const handleSearch = async (event: any) => {
         if (event.code === "Enter") {
-            setQuestion(event.target.value)
             setIsLoading(true);
             setMessage(await summarize(event.target.value));
             setIsLoading(false)
@@ -172,11 +188,13 @@ export default function Search() {
                         name="search"
                         id="search"
                         onKeyUp={(e) => handleSearch(e)}
+                        onChange={(e) => setQuestion(e.target.value)}
+                        value={question === FIRST_VALUE ? "" : question ?? ""}
                         className="block w-full rounded-md border-0 py-1.5 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                     <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
                         <kbd className="inline-flex items-center rounded border border-gray-200 px-1 font-sans text-xs text-gray-400">
-                        👀
+                            👀
                         </kbd>
                     </div>
                 </div>
@@ -184,7 +202,7 @@ export default function Search() {
             <div>
                 <main className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
                     <div className="border-b border-gray-200 pb-10">
-                        <h1 className="text-4xl font-bold tracking-tight text-gray-900">Search Result: {question !== FIRST_VALUE ? question : ""}</h1>              
+                        <h1 className="text-4xl font-bold tracking-tight text-gray-900">Search Result: {question !== FIRST_VALUE ? question : ""}</h1>
                         <div className={classNames(isLoading ? 'visible' : 'invisible', 'border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600')} />
                         <p className={classNames(!isLoading ? 'visible' : 'invisible', 'text-base text-gray-500')}>
                             {message}

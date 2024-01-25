@@ -13,7 +13,7 @@ import {
 
 function makeClient() {
     const httpLink = new HttpLink({
-        uri: "https://cg.optimizely.com/content/v2?auth=FN2KsYsUIKkqahBfJOiILcRUykgXoY0VFomMgVHjM1IMiSyg",
+        uri: "https://cg.optimizely.com/content/v2?auth=FN2KsYsUIKkqahBfJOiILcRUykgXoY0VFomMgVHjM1IMiSyg&cachw=false",
     });
 
     return new NextSSRApolloClient({
