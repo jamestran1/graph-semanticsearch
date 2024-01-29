@@ -29,7 +29,7 @@ query DetailQuery($slug: String, $locale: [Locales]) {
 `
 
 export default async function DetailFoodComponent({ slug, locale }: DetailFoodProps) {
-    const { data, loading, error } = await getClient().query({ query: foodPageQuery, variables: { slug: slug + "/", locale: `[${locale}]`} });
+    const { data, loading, error } = await getClient().query({ query: foodPageQuery, variables: { slug: slug + "/", locale: `${locale}`} });
     if (loading) return <div>Loading...</div>
     if (error) return `Error! ${error.message}`
     const foodPage = data.FoodPage.items[0]
