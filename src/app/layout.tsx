@@ -1,16 +1,12 @@
 'use client'
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { classNames } from "@/lib/util";
 
 const inter = Inter({ subsets: ["latin"] });
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
 
 export default function RootLayout({
   children,

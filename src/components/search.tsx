@@ -5,7 +5,6 @@ import { gql } from "@apollo/client";
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import { FoodPage } from '@/__generated__/graphql';
 import { useSearchParams } from 'next/navigation';
-import summarize from '@/lib/opti.ai';
 import { classNames } from '@/lib/util';
 
 interface FoodProps {
